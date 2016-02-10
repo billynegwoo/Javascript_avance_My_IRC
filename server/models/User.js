@@ -3,17 +3,17 @@
  */
 var mongoose = require('mongoose');
 
-// Create Movie Schema
-var movieSchema = new mongoose.Schema({
-    title: {
+// Create the MovieSchema.
+var UserSchema = mongoose.Schema({
+    username: {
         type: String,
         required: true
     },
-    url: {
+    password: {
         type: String,
         required: true
     }
 });
 
-// Export movie Schema
-module.exports = movieSchema;
+// Export the model.
+module.exports = mongoose.model('user', UserSchema);

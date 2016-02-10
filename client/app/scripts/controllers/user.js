@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name publicApp.controller:MainCtrl
+ * @name publicApp.controller:UserCtrl
  * @description
- * # MainCtrl
+ * # UserCtrl
  * Controller of the publicApp
  */
 angular.module('publicApp')
-  .controller('MainCtrl', function () {
+  .controller('UserCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

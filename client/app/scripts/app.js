@@ -2,15 +2,20 @@
 
 /**
  * @ngdoc overview
- * @name clientApp
+ * @name publicApp
  * @description
- * # clientApp
+ * # publicApp
  *
  * Main module of the application.
  */
 angular
-  .module('clientApp', [
-    'ngRoute'
+  .module('publicApp', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+    'ngTouch'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -23,6 +28,11 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/user', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl',
+        controllerAs: 'user'
       })
       .otherwise({
         redirectTo: '/'
