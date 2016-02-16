@@ -12,8 +12,10 @@ var UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    admin:Boolean
 });
 
-// Export the model.
-module.exports = mongoose.model('user', UserSchema);
+var User = mongoose.model('User', UserSchema);
+
+module.exports = User;

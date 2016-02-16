@@ -8,33 +8,38 @@
  *
  * Main module of the application.
  */
-angular
-  .module('publicApp', [
+angular.module('App', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
+    'ngRoute'
+  ]).config(function ($routeProvider,$httpProvider) {
+  $httpProvider.interceptors.push('TokenInterceptor');
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
       })
-      .when('/about', {
+      .when('/home', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .when('/user', {
-        templateUrl: 'views/user.html',
         controller: 'UserCtrl',
-        controllerAs: 'user'
+        access: {requiredLogin: true}
+      })
+      .when('/admin', {
+        templateUrl: 'views/about.html',
+        controller: 'UserCtrl',
+        access: {requiredLogin: true}
       })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+angular.module('App')
+  .run(function($rootScope, $location, $window, AuthService) {
+  $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+    if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
+      && !AuthService.isAuthenticated && !$window.sessionStorage.token) {
+      $location.path("/login");
+    }
+  });
+});
