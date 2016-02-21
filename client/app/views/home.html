@@ -1,0 +1,69 @@
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<ul class="list-group">-->
+<!--<li class="list-group-item" ng-click="switch()" ng-repeat="room in rooms">-->
+<!--<div ng-click="switch(room)">{{room}}</div>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<hr/>-->
+<!--</div>-->
+
+
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="messages-container">-->
+
+<!--<ul class="messages" scroll-glue>-->
+<!--<li class="message left appeared" ng-repeat="message in messages track by $index"><div class="text_wrapper"><div class="text">{{ message.user}} {{ message.message }}</div></div></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+
+<!--</div>-->
+<!--</div>-->
+<!-- Rooms -->
+<div class="row-fluid">
+  <div class="span12 well" style="background-color:white; border:0px">
+    <!-- Tabs -->
+    <div class="row-fluid">
+      <div class="span12">
+        <ul id="rooms_tabs" class="nav nav-tabs">
+          <!-- Room tab -->
+          <li ng-repeat="room in rooms track by $index" id="MainRoom_tab" ng-click="switch(room)" class="active"><a href="#MainRoom" data-toggle="tab">{{ room
+            }}</a></li>
+          <!-- End Room tab -->
+        </ul>
+      </div>
+    </div>
+    <!-- End Tabs -->
+    <div id="rooms" class="tab-content">
+      <!-- Room -->
+      <div class="tab-pane active" id="MainRoom">
+        <div class="row-fluid">
+          <div class="span12 well">
+            <div class="messages" scroll-glue>
+              <ul>
+                <li class="message left appeared " ng-repeat="message in messages track by $index"><div class="text_wrapper">{{ message }}</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Room -->
+    </div>
+    <!-- End Rooms -->
+  </div>
+</div>
+<!-- End Rooms -->
+
+<!-- New message input -->
+
+<div class="add-message">
+  <div class="form-group">
+    <input type="text" class="form-control message" ng-model="message" my-enter="send()" placeholder="Write a message"/>
+  </div>
+</div>
+
+<!-- End New message -->

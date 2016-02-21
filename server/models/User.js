@@ -13,7 +13,12 @@ var UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    admin:Boolean
+    email: {
+        type:String,
+        required:true
+    },
+    admin:Boolean,
+    socketId:String
 });
 
 var User = mongoose.model('User', UserSchema);

@@ -1,9 +1,9 @@
 /**
  * Created by billynegwoo on 08/02/16.
  */
-var User    = require('../models/User');
-var jwt     = require('jsonwebtoken');
-var hash    = require('password-hash');
+var User = require('../models/User');
+var jwt = require('jsonwebtoken');
+var hash = require('password-hash');
 
 module.exports = function (app) {
 
@@ -15,14 +15,33 @@ module.exports = function (app) {
     };
 
     this.new = function (req, res, next) {
-        var user = new User({
-            username: req.body.username,
-            password: hash.generate(req.body.password)
+        User.findOne({
+            username: req.body.username
+        }, function (err, data) {
+            if (!data) {
+                User.findOne({
+                    email: req.body.email
+                }, function (err, data) {
+                    if (!data) {
+                        var user = new User({
+                            username: req.body.username,
+                            password: hash.generate(req.body.password),
+                            email: req.body.email
+                        });
+                        user.save(function (err, user) {
+                            if (err) return res.json(err);
+                            return res.json(user);
+                        })
+                    } else {
+                        return res.json({success: false, message: "Email already in use."});
+                    }
+                });
+
+            } else {
+                return res.json({success: false, message: "Username already in use."});
+            }
         });
-        user.save(function (err, user) {
-            if (err) return res.json(err);
-            return res.json(user);
-        })
+
     };
     this.get = function (req, res, next) {
         User.findById(req.params.id, function (err, user) {
@@ -38,15 +57,16 @@ module.exports = function (app) {
             if (!user) {
                 res.json({success: false, message: "Authentication failed. User not found."})
             } else if (user) {
-                if (hash.verify( req.body.password,user.password)) {
-                    var token = jwt.sign(user, "secret" , {
+                if (hash.verify(req.body.password, user.password)) {
+                    var token = jwt.sign(user, "secret", {
                         expiresIns: 86400
                     });
                     res.json({
                         success: true,
-                        token: token
+                        token: token,
+                        user: user.username
                     })
-                }else{
+                } else {
                     res.json({success: false, message: "Authentication failed. Wrong password."})
                 }
             }

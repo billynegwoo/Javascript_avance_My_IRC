@@ -2,15 +2,15 @@
 
 /**
  * @ngdoc service
- * @name publicApp.AuthService
+ * @name App.AuthService
  * @description
  * # AuthService
- * Service in the publicApp.
+ * Service in the App.
  */
 angular.module('App')
   .service('AuthService', function () {
-    var auth = {
-      isLogged: false
+    return {
+      isAuthenticated: false,
+      isAdmin: false
     };
-    return auth;
   });

@@ -31,7 +31,7 @@ module.exports = function(app) {
     app.use('/api', apiRoutes);
 
     // public routes
-    app.post('/auth', user.auth);
-    app.post('/auth/user', user.new);
+    app.post('/auth/login', user.auth);
+    app.post('/auth/register', user.new);
     return this;
 };

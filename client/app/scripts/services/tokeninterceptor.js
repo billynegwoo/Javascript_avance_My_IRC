@@ -30,7 +30,7 @@ angular.module('App')
         if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthService.isAuthenticated)) {
           delete $window.sessionStorage.token;
           AuthService.isAuthenticated = false;
-          $location.path("/admin/login");
+          $location.path("/");
         }
         return $q.reject(rejection);
       }
