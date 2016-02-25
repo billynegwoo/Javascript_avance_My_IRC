@@ -4,7 +4,6 @@
 var app = require('express')();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var _ = require('underscore');
 var consign = require('consign');
 var morgan = require('morgan');
 var http = require('http').Server(app);
